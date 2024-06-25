@@ -1,4 +1,4 @@
-use std::{cell::RefCell, string};
+use std::{cell::RefCell};
 
 thread_local! {
     static WPISY: RefCell<Vec<String>> = RefCell::default();
@@ -14,4 +14,9 @@ fn dodaj_wpis(wpis: String) {
     WPISY.with(|wpisy: &RefCell<Vec<String>>| {
         wpisy.borrow_mut().push(wpis);
     });
+}
+
+#[ic_cdk::query]
+fn odczytaj_wpisy() -> Vec<String> {
+    WPISY.with(|wpisy: &RefCell<Vec<String>>| wpisy.borrow().clone())
 }
