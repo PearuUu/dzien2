@@ -3,11 +3,14 @@ import { ref } from 'vue';
 import { dzien2_backend } from 'declarations/dzien2_backend/index';
 let greeting = ref('');
 
-async function handleSubmit(e) {
+async function handleSubmit(e)
+{
   e.preventDefault();
   const target = e.target;
   const name = target.querySelector('#name').value;
-  await dzien2_backend.greet(name).then((response) => {
+  const number = target.querySelector('#number').value;
+  await dzien2_backend.greet(name, Number(number)).then((response) =>
+  {
     greeting.value = response;
   });
 }
@@ -21,6 +24,7 @@ async function handleSubmit(e) {
     <form action="#" @submit="handleSubmit">
       <label for="name">Enter your name: &nbsp;</label>
       <input id="name" alt="Name" type="text" />
+      <input id="number" alt="Numer" type="number" />
       <button type="submit">Click Me!</button>
     </form>
     <section id="greeting">{{ greeting }}</section>
